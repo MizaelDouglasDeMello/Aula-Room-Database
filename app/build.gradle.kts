@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace = "br.com.mizaeldouglas.aula_room_database"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "br.com.mizaeldouglas.aula_room_database"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 

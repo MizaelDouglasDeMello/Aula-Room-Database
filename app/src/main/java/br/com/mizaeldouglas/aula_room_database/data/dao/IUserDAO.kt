@@ -25,5 +25,4 @@ interface IUserDAO {
     @Query("SELECT * FROM user WHERE id = :id")
     fun getUser(id: Int): User
 
-
 }
