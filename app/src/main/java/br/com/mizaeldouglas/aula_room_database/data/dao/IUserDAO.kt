@@ -19,7 +19,7 @@ interface IUserDAO {
     @Update
     fun updateUser(user: User)
 
-    @Query("SELECT * FROM user")
+    @Query("SELECT * FROM user ORDER BY name ASC")
     fun listUsers(): List<User>
 
     @Query("SELECT * FROM user WHERE id = :id")

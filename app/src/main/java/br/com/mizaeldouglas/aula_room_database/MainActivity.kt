@@ -10,8 +10,8 @@ import br.com.mizaeldouglas.aula_room_database.data.DatabaseRoom
 import br.com.mizaeldouglas.aula_room_database.data.dao.IUserDAO
 import br.com.mizaeldouglas.aula_room_database.data.model.User
 import br.com.mizaeldouglas.aula_room_database.databinding.ActivityMainBinding
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -43,23 +43,49 @@ class MainActivity : AppCompatActivity() {
                 id = 0,
                 name
             )
-            Log.i("Create_User", "onCreate: $user")
             CoroutineScope(Dispatchers.IO).launch {
                 userDao.insertUser(user)
             }
         }
-        binding.btnDeletar.setOnClickListener { }
-        binding.btnAtualizar.setOnClickListener { }
+
+
+        binding.btnDeletar.setOnClickListener {
+
+            CoroutineScope(Dispatchers.IO).launch {
+                val user = userDao.getUser(1)
+                userDao.deleteUser(user)
+            }
+
+
+        }
+
+
+        binding.btnAtualizar.setOnClickListener {
+
+            val name = binding.editName.text.toString()
+
+            val user = User(
+                id = 2,
+                name
+            )
+            CoroutineScope(Dispatchers.IO).launch {
+                userDao.updateUser(user)
+            }
+
+        }
+
+
         binding.btnListar.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
                 val users = userDao.listUsers()
                 Log.i("List_Users", "onCreate: $users")
 
-
+                var lista = ""
+                users.forEach {
+                    lista += "${it.id})  ${it.name} \n"
+                }
                 withContext(Dispatchers.Main) {
-                    users.forEach{
-                        binding.txtListaUsr.append("\n" +it.name + "\n")
-                    }
+                    binding.txtListaUsr.text = lista
                 }
             }
         }
